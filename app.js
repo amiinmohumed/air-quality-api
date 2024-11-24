@@ -2,11 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const airQualityRoutes = require("./routes/airQualityRoutes");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocs = require("./swagger");
 
 const app = express();
 
 // Middleware
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const mongouri = process.env.MONGODB_URI;
 mongoose.connect(mongouri, {
